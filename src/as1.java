@@ -31,6 +31,7 @@ public class as1 {
 
 
 //Initalizing a HASH map, and Hashtable
+        //New Comment
         Map map = new HashMap(bucket_size,1);
         Hashtable<String, Integer> table = new Hashtable<>(1);
 
