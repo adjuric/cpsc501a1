@@ -1,5 +1,11 @@
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Scanner;
+
 import org.junit.Test;
 
 public class as1Test {
@@ -23,11 +29,25 @@ public class as1Test {
 	}
 	
 	public void testReadFile(){
-		fail("Not yet implemented");
+		File myFile = new File("test.txt");
+		Scanner scan = new Scanner("test.txt");
+		Map map = new HashMap(10, 1);
+		Hashtable<String, Integer> table = new Hashtable<>(1);
+		
+		assertFalse(as1.readFile(0,scan,table));
+		assertFalse(as1.readFile(-1,scan,table));
+		assertTrue(as1.readFile(5,scan,table));
 	}
 	
 	public void testFindKey(){
-		fail("Not yet implemented");
+		File myFile = new File("test.txt");
+		Scanner scan = new Scanner("test.txt");
+		Map map = new HashMap(10, 1);
+		Hashtable<String, Integer> table = new Hashtable<>(1);
+		
+		assertFalse(as1.findKey(0,scan,table));
+		assertFalse(as1.findKey(-4,scan,table));
+		assertTrue(as1.findKey(3,scan,table));
 	}
 
 	private boolean main(String[] strings) {

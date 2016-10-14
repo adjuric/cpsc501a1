@@ -21,7 +21,7 @@ public class as1 {
 
 		// Checking if the number of inputs is correct
 		if (args.length != 3) {
-			System.out.println("Not enough given arguments, Criteria: File Name, Number of Keys");
+			System.out.println("Not enough given arguments, Criteria: File Name, Number of Keys,Bucket Size");
 			System.exit(1);
 		}
 
@@ -37,7 +37,11 @@ public class as1 {
 		File myFile = new File(file_name);
 		Scanner scan = new Scanner(myFile);
 
-		readFile(num_keys, scan, table);
+		if(readFile(num_keys, scan, table)){
+			System.out.println("File Read without issues");
+		}else{
+			System.out.println("Error when reading the file");
+		};
 
 		// Reading the keys from the file and locating them in the hash table.
 		File newFile = new File(file_name);
@@ -45,32 +49,40 @@ public class as1 {
 
 		// Going through the entire document and locating where a spefic key is
 		// located.
-		findKey(num_keys, scanner, table);
+		if(findKey(num_keys, scanner, table)){
+			System.out.println("Found the Key");
+		}else{
+			System.out.println("Key Was not found");
+		}
 
 		// Calculating the number of comparisons required to find a given key
 		int comparisons = calcNumCompare(num_keys, bucket_size);
 		System.out.printf("Average number of comparisons: %d\n", comparisons);
 	}
 
-	private static void findKey(int num_keys, Scanner scanner, Hashtable<String, Integer> table) {
+	public static boolean findKey(int num_keys, Scanner scanner, Hashtable<String, Integer> table) {
 		String key;
-
+		boolean found = false;
+		
 		for (int i = 0; i < num_keys; i++) {
 			if (scanner.hasNext()) {
 				key = scanner.nextLine();
 
 				System.out.printf("For key \"%s\"\n", key);
 				System.out.printf(" it is stored in Bucket: %d\n\n", table.get(key));
+				found = true;
 			} else {
 				System.out.println("\nNot enough keys were given.\n");
+				found = false;
 			}
 		}
+		return found;
 	}
 
-	private static void readFile(int num_keys, Scanner scan, Hashtable<String, Integer> table) {
+	public static boolean readFile(int num_keys, Scanner scan, Hashtable<String, Integer> table) {
 		String key;
 		int buc_val;
-
+		boolean passed = false;
 		// Parse the file until the correct number of keys have been read, and
 		// for each String read, perform a hash function to said string
 		// in order to evaluate what bucket each key should be stored
@@ -87,13 +99,17 @@ public class as1 {
 				// Storing the key in the correct part of the hash table (in the
 				// correct bucket)
 				table.put(key, buc_val);
+				passed = true;
 			} else {
 				System.out.println("\nNot enough keys were given.\n");
+				passed = false;
 			}
+			
 		}
+		return passed;
 	}
 
-	private static int hashMask(String line, int num_keys) {
+	public static int hashMask(String line, int num_keys) {
 		int bitMask = 0x11110001;
 		int bucket = 0;
 		char[] conv = line.toCharArray();
@@ -106,8 +122,7 @@ public class as1 {
 		return bucket;
 	}
 
-	private static int calcNumCompare(int num, int buck_size) {
-		// return (int)Math.round(Math.random()*(num-1)) + 1;
+	public static int calcNumCompare(int num, int buck_size) {
 		int ele = num;
 		int total;
 		int num_buc = 1;
