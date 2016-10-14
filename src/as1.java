@@ -51,7 +51,7 @@ public class as1 {
         
 
 //Calculating the number of comparisons required to find a given key
-        int comparisons = calc(num_keys, bucket_size);
+        int comparisons = calcNumCompare(num_keys, bucket_size);
         System.out.printf("Average number of comparisons: %d\n", comparisons);
     }
     
@@ -110,7 +110,7 @@ public class as1 {
         return bucket;
     }
     
-    private static int calc(int num, int buck_size){
+    private static int calcNumCompare(int num, int buck_size){
         //return (int)Math.round(Math.random()*(num-1)) + 1;
         int ele = num;
         int total;
