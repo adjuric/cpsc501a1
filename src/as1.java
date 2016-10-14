@@ -31,7 +31,6 @@ public class as1 {
 
 
 //Initalizing a HASH map, and Hashtable
-        //New Comment
         Map map = new HashMap(bucket_size,1);
         Hashtable<String, Integer> table = new Hashtable<>(1);
 
@@ -42,24 +41,7 @@ public class as1 {
         String key;
         int buc_val;
 
-//Parse the file until the correct number of keys have been read, and for each String read, perform a hash function to said string
-// in order to evaluate what bucket each key should be stored
-        for (int i = 0; i < num_keys; i++) {
-            if (scan.hasNext()) {
-
-                //Reading the file line by line
-                key = scan.nextLine();
-                //Preforming the hash on each key
-                buc_val = hash(key,num_keys);
-
-                System.out.printf("Key = %s\n", key);
-                System.out.printf("Hash Value = %d\n\n", buc_val);
-                //Storing the key in the correct part of the hash table (in the correct bucket)
-                table.put(key, buc_val);
-            } else {
-                System.out.println("\nNot enought keys were given.\n");
-            }
-        }
+        readFile(num_keys,scan,table);
 
 
 //Reading the keys from the file and locating them in the hash table.
@@ -84,6 +66,31 @@ public class as1 {
         int comparisons = calc(num_keys, bucket_size);
         System.out.printf("Average number of comparisons: %d\n", comparisons);
     }
+    
+    private static void readFile(int num_keys,Scanner scan, Hashtable<String, Integer> table  ){
+    	
+    	//Parse the file until the correct number of keys have been read, and for each String read, perform a hash function to said string
+    	// in order to evaluate what bucket each key should be stored
+    	        for (int i = 0; i < num_keys; i++) {
+    	            String key;
+    	            int buc_val;
+    	            
+    	            if (scan.hasNext()) {
+
+    	                //Reading the file line by line
+    	                key = scan.nextLine();
+    	                //Preforming the hash on each key
+    	                buc_val = hash(key,num_keys);
+
+    	                System.out.printf("Key = %s\n", key);
+    	                System.out.printf("Hash Value = %d\n\n", buc_val);
+    	                //Storing the key in the correct part of the hash table (in the correct bucket)
+    	                table.put(key, buc_val);
+    	            } else {
+    	                System.out.println("\nNot enought keys were given.\n");
+    	            }
+    	        }	
+    }
 
     private static int hash(String line, int num_keys) {
         int bitMask = 0x11110001;
@@ -98,14 +105,6 @@ public class as1 {
         return bucket;
     }
     
-    	/*public Directory expandDirectory(Directory d1, splitted_bucket_no){
-		current_size=d1.size()
-		for (int i=current_size; i<current_size*2; i++){
-			
-			d1.add(new Directory(1));
-		}
-		
-	}*/
     private static int calc(int num, int buck_size){
         //return (int)Math.round(Math.random()*(num-1)) + 1;
         int ele = num;
