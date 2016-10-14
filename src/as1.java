@@ -80,7 +80,7 @@ public class as1 {
 				// Reading the file line by line
 				key = scan.nextLine();
 				// Preforming the hash on each key
-				buc_val = hash(key, num_keys);
+				buc_val = hashMask(key, num_keys);
 
 				System.out.printf("Key = %s\n", key);
 				System.out.printf("Hash Value = %d\n\n", buc_val);
@@ -93,7 +93,7 @@ public class as1 {
 		}
 	}
 
-	private static int hash(String line, int num_keys) {
+	private static int hashMask(String line, int num_keys) {
 		int bitMask = 0x11110001;
 		int bucket = 0;
 		char[] conv = line.toCharArray();
