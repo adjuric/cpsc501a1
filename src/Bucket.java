@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+//Moving the Bucket Class to its own File
 public class Bucket{
 	
 	int depth;
@@ -25,30 +26,23 @@ public class Bucket{
     }
 	
 	public void setDepth(int d){
-		
 			depth=d;
-	
 	}
-	public int getDepth(){
-		
+	
+	public int getDepth(){	
 			return depth;
-	
 	}
-	
+
 	public void insert(String value){
 		
 			elements.add(value); 
-	
 	}
 	
-	public void firstInsert(String value){
-		
+	public void firstInsert(String value){	
 			elements.set(0, value);
-	
 	}
 	
-	public boolean full(){
-		
+	public boolean full(){	
 		if (elements.size()<3)
 			return false;
 		else
@@ -59,6 +53,5 @@ public class Bucket{
 		 for(int i=0; i<elements.size(); i++){
               System.out.println(elements.get(i));
          }
-	}
-	
+	}	
 }
