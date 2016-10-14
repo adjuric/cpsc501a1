@@ -19,8 +19,6 @@ public class as1Test {
 		assertFalse(main(new String[]{"","2","10"}));
 		assertFalse(main(new String[]{}));
 	}
-	
-
 
 	public void testCalcNumCompare(){
 		assertEquals(1,as1.calcNumCompare( -1,10 ));
@@ -51,7 +49,6 @@ public class as1Test {
 	}
 
 	private boolean main(String[] strings) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	

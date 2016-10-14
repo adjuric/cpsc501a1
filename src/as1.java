@@ -19,17 +19,22 @@ public class as1 {
 
 	public static void main(String args[]) throws FileNotFoundException {
 
-		// Checking if the number of inputs is correct
+		// Check Number of Inputs
 		if (args.length != 3) {
 			System.out.println("Not enough given arguments, Criteria: File Name, Number of Keys,Bucket Size");
 			System.exit(1);
 		}
+		String file_name;
+		if(checkFileName(args[0])){
+			file_name = args[0];
+		}else{
+			System.out.println("String is invalid");
+			file_name = "";
+		}
+		int num_keys = checkNumKeys(args[1]);
+		int bucket_size = checkBucketSize(args[2]);
 
-		String file_name = args[0];
-		int num_keys = Integer.parseInt(args[1]);
-		int bucket_size = Integer.parseInt(args[2]);
-
-		// Initalizing a HASH map, and Hashtable
+		// Created Hashmap and table
 		Map map = new HashMap(bucket_size, 1);
 		Hashtable<String, Integer> table = new Hashtable<>(1);
 
@@ -43,12 +48,11 @@ public class as1 {
 			System.out.println("Error when reading the file");
 		};
 
-		// Reading the keys from the file and locating them in the hash table.
+		// Storing keys to a hash table
 		File newFile = new File(file_name);
 		Scanner scanner = new Scanner(newFile);
 
-		// Going through the entire document and locating where a spefic key is
-		// located.
+		// Finding the key in the document
 		if(findKey(num_keys, scanner, table)){
 			System.out.println("Found the Key");
 		}else{
@@ -59,7 +63,31 @@ public class as1 {
 		int comparisons = calcNumCompare(num_keys, bucket_size);
 		System.out.printf("Average number of comparisons: %d\n", comparisons);
 	}
-
+	
+	public static int checkBucketSize(String check){
+		int bucket_size = 0;
+		 bucket_size = Integer.parseInt(check);
+		 if(bucket_size <= 0){
+			 System.out.println("Bucket Size to Low");
+		 }
+		return bucket_size;
+	}
+	public static int checkNumKeys(String check){
+		int num_keys = 0;
+		 if(num_keys <= 0){
+			 System.out.println("Not Enough keys");
+		 }
+		 num_keys = Integer.parseInt(check);
+		return num_keys;
+	}
+public static boolean checkFileName(String check){
+	boolean answer =false;
+	if(!check.isEmpty()){
+		answer = true;
+	}
+	return answer;
+}
+	
 	public static boolean findKey(int num_keys, Scanner scanner, Hashtable<String, Integer> table) {
 		String key;
 		boolean found = false;
