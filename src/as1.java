@@ -38,9 +38,7 @@ public class as1 {
 //Preparing to read the file for all the given information
         File myFile = new File(file_name);
         Scanner scan = new Scanner(myFile);
-        String key;
-        int buc_val;
-
+        
         readFile(num_keys,scan,table);
 
 
@@ -49,7 +47,18 @@ public class as1 {
         Scanner scanner = new Scanner(newFile);
 
         //Going through the entire document and locating where a spefic key is located.
-        for (int i = 0; i < num_keys; i++) {
+        findKey(num_keys,scanner,table);
+        
+
+//Calculating the number of comparisons required to find a given key
+        int comparisons = calc(num_keys, bucket_size);
+        System.out.printf("Average number of comparisons: %d\n", comparisons);
+    }
+    
+    private static void findKey(int num_keys, Scanner scanner,Hashtable<String, Integer> table){
+    	 String key;
+    	
+    	for (int i = 0; i < num_keys; i++) {
             if (scanner.hasNext()) {
                 key = scanner.nextLine();
 
@@ -60,20 +69,16 @@ public class as1 {
                 System.out.println("\nNot enough keys were given.\n");
             }
         }
-        
-
-//Calculating the number of comparisons required to find a given key
-        int comparisons = calc(num_keys, bucket_size);
-        System.out.printf("Average number of comparisons: %d\n", comparisons);
     }
     
     private static void readFile(int num_keys,Scanner scan, Hashtable<String, Integer> table  ){
+    	 String key;
+         int buc_val;
     	
     	//Parse the file until the correct number of keys have been read, and for each String read, perform a hash function to said string
     	// in order to evaluate what bucket each key should be stored
     	        for (int i = 0; i < num_keys; i++) {
-    	            String key;
-    	            int buc_val;
+    	           
     	            
     	            if (scan.hasNext()) {
 
